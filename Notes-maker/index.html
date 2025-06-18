@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube Notes Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white min-h-screen font-sans">
 
+  <div class="max-w-4xl mx-auto p-6">
+
+    <!-- Step 1: Insert Link -->
+    <div id="linkSection" class="text-center py-20">
+      <h1 class="text-3xl font-bold mb-6 text-indigo-300">📺 YouTube Video Notes</h1>
+      <p class="mb-4 text-gray-300">Paste any YouTube video link to begin taking notes</p>
+      <input type="text" id="youtubeLink" class="w-full md:w-2/3 mx-auto p-3 rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. https://youtu.be/ABC123xyz">
+      <button onclick="loadVideo()" class="mt-4 bg-indigo-600 hover:bg-indigo-500 px-6 py-2 rounded-lg text-white shadow-md">
+        ➕ Load Video
+      </button>
+      <p id="error" class="text-red-400 mt-3 hidden">❌ Invalid YouTube link.</p>
+    </div>
+
+    <!-- Step 2: Notes Interface -->
+    <div id="notesSection" class="hidden space-y-10">
+      
+      <!-- YouTube Video -->
+      <div class="rounded-lg overflow-hidden shadow-xl">
+        <iframe id="youtubeIframe" class="w-full h-96" src="" title="YouTube Video" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- Notes Box -->
+      <section class="bg-[#1e40af] bg-opacity-20 p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-indigo-200 mb-4">✍️ Your Notes</h2>
+
+        <!-- Note Tools -->
+        <div class="flex gap-4 mb-3">     
+          <button onclick="clearNotes()" class="bg-red-600 hover:bg-red-500 px-3 py-1 rounded-md text-sm">🧹 Clear</button>
+          <button onclick="exportNotes()" class="ml-auto bg-green-600 hover:bg-green-500 px-3 py-1 rounded-md text-sm">📤 Export</button>
+        </div>
+
+        <textarea id="userNotes" rows="12" class="w-full p-4 rounded-lg text-white bg-[#334155] resize-none outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Take your notes while watching the video..."></textarea>
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    function extractVideoId(url) {
+      const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^\s&?]+)/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    function loadVideo() {
+      const link = document.getElementById("youtubeLink").value.trim();
+      const videoId = extractVideoId(link);
+      const error = document.getElementById("error");
+
+      if (!videoId) {
+        error.classList.remove("hidden");
+        return;
+      }
+
+      error.classList.add("hidden");
+      const iframe = document.getElementById("youtubeIframe");
+      iframe.src = `https://www.youtube.com/embed/${videoId}`;
+
+      document.getElementById("linkSection").classList.add("hidden");
+      document.getElementById("notesSection").classList.remove("hidden");
+    }
+
+    function clearNotes() {
+      if (confirm("Clear all your notes?")) {
+        document.getElementById("userNotes").value = "";
+      }
+    }
+
+    function exportNotes() {
+      const notes = document.getElementById("userNotes").value;
+      if (!notes.trim()) {
+        alert("Note is empty!");
+        return;
+      }
+      const blob = new Blob([notes], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "My_Notes.txt";
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
