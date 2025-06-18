@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.container {
+  background: #ffffff;
+  padding: 2rem 2rem 4rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.date {
+  font-size: 35px;
+  font-weight: 900;
+  color: #2e3a59;
+}
+
+.day {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #7a7a7a;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  margin: 1rem 0;
+}
+
+.progress-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.progress-bar {
+  height: 12px;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4e9af1;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.progress-percent {
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  margin-top: 0.2rem;
+}
+
+/* Task List */
+.task-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.task-item:hover {
+  background-color: #f8f9fa;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight:500;
+  margin-left: 0.75rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.checkbox {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.checkbox:hover {
+  transform: scale(1.2);
+}
+
+/* Add Button */
+.add-btn {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4e9af1;
+  color: white;
+  font-size: 2rem;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(78, 154, 241, 0.4);
+  transform: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #347fd1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1.2rem 4rem;
+    border-radius: 12px;
+  }
+
+  .main-heading {
+    font-size: 1.5rem;
+  }
+
+  .date {
+    font-size: 1.2rem;
+  }
+
+  .day {
+    font-size: 0.95rem;
+  }
+
+  .task-text {
+    font-size: 0.95rem;
+  }
+
+  .checkbox {
+    font-size: 1rem;
+  }
+
+  .add-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.7rem;
+  }
+}
